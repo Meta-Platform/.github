@@ -1,12 +1,3 @@
-## Hi there 👋
-
-<!--
-
-**Here are some ideas to get you started:**
-
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+# Meta Platform
+É um conceito de desenvolvimento de software que busca cada vez mais a atomização, modularização e componentização.
+ Nesse contexto, a Meta Platform surge como um padrão ou modo de desenvolvimento de sistemas que, aliado a um conjunto de componentes oficiais e também construídos pela comunidade, pode ser utilizado para criar e expandir o seu próprio ecossistema ou o da sua empresa.
