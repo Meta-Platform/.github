@@ -34,32 +34,38 @@ npm link        # disponibiliza o comando `mywizard` globalmente
 
 ## 2. Escolher um perfil e instalar
 
-Liste os perfis disponíveis e veja os detalhes de um deles:
+Liste os perfis disponíveis:
 
 ```bash
 mywizard list-profiles
-mywizard show-profile --profile dev-localfs-standard
 ```
 
-| Tipo de perfil | Origem dos pacotes | Uso |
-|----------------|--------------------|-----|
-| `release-*`        | Releases do GitHub        | Uso/produção |
-| `dev-github-release-*` | Releases do GitHub    | Desenvolvimento |
-| `dev-localfs-*`    | Sistema de arquivos local | Desenvolvimento local |
+Perfis **registrados** (selecionáveis por nome):
 
-Cada tipo tem variações `-minimal`, `-standard` e `-full`. Instale:
+| Perfil | Origem dos pacotes | Repositórios |
+|--------|--------------------|--------------|
+| `release-minimal`        | Releases do GitHub        | `EssentialRepo` |
+| `release-standard`       | Releases do GitHub        | `EssentialRepo` + `EcosystemCoreRepo` |
+| `localfs-release-standard` | Sistema de arquivos local | `EssentialRepo` + `EcosystemCoreRepo` |
+
+Instale informando **sempre** um perfil registrado:
 
 ```bash
-# instalação padrão (perfil standard, em ~/EcosystemData)
-mywizard install
-
-# escolhendo o perfil
-mywizard install --profile dev-localfs-standard
+# uso/produção
+mywizard install --profile release-standard
 mywizard install --profile release-minimal
 
+# desenvolvimento a partir do disco
+mywizard install --profile localfs-release-standard
+
 # escolhendo onde instalar
-mywizard install --installation-path "~/meu-projeto/EcosystemData"
+mywizard install --profile release-standard --installation-path "~/meu-projeto/EcosystemData"
 ```
+
+> Detalhes (e inconsistências conhecidas, como o `show-profile` e o default
+> `standard`) em
+> [installation-profiles](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/docs/installation-profiles.md)
+> e [known-issues](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/docs/known-issues.md).
 
 > Após instalar, garanta que `EcosystemData/executables` esteja no seu `PATH`
 > para usar os comandos abaixo (`repo`, `supervisor`, `executor`, …).
@@ -69,8 +75,8 @@ mywizard install --installation-path "~/meu-projeto/EcosystemData"
 ## 3. Atualizar um ecossistema
 
 ```bash
-mywizard update --profile dev-localfs-standard
-mywizard update --installation-file ~/meu-ambiente.install.json
+mywizard update --profile localfs-release-standard
+mywizard update --profile release-standard --installation-path "~/meu-projeto/EcosystemData"
 ```
 
 ---
@@ -150,7 +156,7 @@ veja o
 
 ```bash
 # 1. instalar o ambiente apontando para os repos locais
-mywizard install --profile dev-localfs-standard
+mywizard install --profile localfs-release-standard
 
 # 2. registrar/instalar um repositório local
 repo register source EssentialRepo LOCAL_FS --localPath ~/Workspaces/meta-platform-repo/repos/essential-repository
@@ -162,7 +168,7 @@ supervisor status instance-manager.sock
 supervisor log    instance-manager.sock
 
 # 4. ao alterar código, atualizar
-mywizard update --profile dev-localfs-standard
+mywizard update --profile localfs-release-standard
 repo update EssentialRepo LOCAL_FS
 ```
 

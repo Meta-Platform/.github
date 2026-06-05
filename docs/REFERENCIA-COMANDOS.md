@@ -23,19 +23,20 @@ Instala e atualiza ecossistemas a partir de perfis. Fonte:
 | `mywizard list-profiles` | Lista os perfis de instalação registrados. |
 | `mywizard install [profile] [installation-path]` | Instala um ecossistema conforme o perfil. |
 | `mywizard update [profile] [installation-path]` | Atualiza um ecossistema instalado. |
-| `mywizard show-profile [profile]` | Mostra informações de um perfil. |
+| `mywizard show-profile [profile]` | ⚠️ Existe no CLI, mas está **quebrado** na versão atual — ver [known-issues](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/docs/known-issues.md). |
 
-- `profile` / `--profile` — nome do perfil (padrão: `standard`).
+- `profile` / `--profile` — nome do perfil. **Informe sempre** um perfil
+  registrado (o default interno `standard` não é válido — ver known-issues).
 - `installation-path` / `--installation-path` — caminho de instalação alternativo.
 - Perfis registrados: `release-minimal`, `release-standard`,
-  `localfs-release-standard` (ver inconsistências no
-  [README do wizard](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/README.md#perfis-de-instalação)).
+  `localfs-release-standard` (detalhes em
+  [installation-profiles](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/docs/installation-profiles.md)).
 
 ```bash
 mywizard list-profiles
 mywizard install --profile release-minimal
 mywizard install --profile localfs-release-standard
-mywizard install --installation-path "~/meu-projeto/EcosystemData"
+mywizard install --profile release-standard --installation-path "~/meu-projeto/EcosystemData"
 mywizard update  --profile release-standard
 ```
 
