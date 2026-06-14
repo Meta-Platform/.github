@@ -4,8 +4,9 @@ Este guia mostra como instalar um ecossistema **Meta Platform** e usar os
 comandos do dia a dia. Para entender a organização do projeto, veja
 [Arquitetura](./ARQUITETURA.md).
 
-> **Pré-requisitos:** Node.js >= 22 e Git instalados. Ambiente Linux x64
-> (as releases binárias são publicadas para `linux-x64`).
+> **Pré-requisitos:** Git instalado e ambiente Linux x64 (as releases binárias
+> são publicadas para `linux-x64`). **Node.js** só é necessário para instalar a
+> partir do código (Opção B) — veja as notas de cada cenário abaixo.
 
 ---
 
@@ -22,6 +23,10 @@ chmod +x mywizard
 ./mywizard --help
 ```
 
+> O binário é **autocontido** (empacotado com [`pkg`](https://github.com/vercel/pkg),
+> target `node18-linux-x64` no script `build`): **não exige Node.js instalado**
+> para ser executado.
+
 ### Opção B — a partir do código (desenvolvimento)
 
 ```bash
@@ -29,6 +34,9 @@ cd Meta-Platform/meta-platform-setup-wizard-command-line
 npm install
 npm link        # disponibiliza o comando `mywizard` globalmente
 ```
+
+> Requer **Node.js** instalado. O `package.json` não declara `engines`; o build
+> oficial visa `node18-linux-x64`, então uma versão LTS atual (18+) atende.
 
 ---
 
@@ -101,7 +109,7 @@ repo register source WormsSolutionsRepo LOCAL_FS   --localPath "~/Workspaces/met
 # instalar / atualizar
 repo install WormsSolutionsRepo LOCAL_FS
 repo install WormsSolutionsRepo LOCAL_FS --executables _3dview _3dservice "worms-website"
-repo update  WormsSolutionsRepo LOCAL_FS
+repo update  WormsSolutionsRepo
 
 repo update EssentialRepo
 repo update EcosystemCoreRepo
@@ -129,7 +137,7 @@ supervisor show task <TASK_ID> <SOCKET> # detalhes de uma tarefa
 supervisor status instance-manager.sock
 supervisor tasks  instance-manager.sock
 supervisor log    instance-manager.sock
-supervisor show task 46 --socket instance-manager.sock
+supervisor show task 46 instance-manager.sock
 ```
 
 ---
@@ -139,7 +147,7 @@ supervisor show task 46 --socket instance-manager.sock
 Para iniciar o gerenciador de instâncias e executar pacotes avulsos:
 
 ```bash
-start-instance-manager      # inicia o gerenciador de instâncias do ecossistema
+executor-manager            # inicia o gerenciador de instâncias do ecossistema
 
 executor package            # executa um pacote
 executor tasks              # lista tarefas do executor
@@ -163,13 +171,13 @@ repo register source EssentialRepo LOCAL_FS --localPath ~/Workspaces/meta-platfo
 repo install EssentialRepo LOCAL_FS
 
 # 3. subir o gerenciador de instâncias e acompanhar
-start-instance-manager
+executor-manager
 supervisor status instance-manager.sock
 supervisor log    instance-manager.sock
 
 # 4. ao alterar código, atualizar
 mywizard update --profile localfs-release-standard
-repo update EssentialRepo LOCAL_FS
+repo update EssentialRepo
 ```
 
 ---

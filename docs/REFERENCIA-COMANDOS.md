@@ -99,7 +99,7 @@ repo show WormsSolutionsRepo
 
 Inspeciona e controla processos pelos sockets de supervisão (gRPC). Fonte:
 `instance-supervisor.cli` (`essential-repository`). Contrato:
-[Package Executor RPC Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-executor-rpc.md).
+[Package Executor RPC Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-executor-rpc-standard.md).
 
 | Comando | Descrição |
 |---------|-----------|
@@ -116,7 +116,7 @@ supervisor status instance-manager.sock
 supervisor tasks  instance-manager.sock
 supervisor log    instance-manager.sock
 supervisor kill   instance-manager.sock
-supervisor show task 46 --socket instance-manager.sock
+supervisor show task 46 instance-manager.sock
 ```
 
 ---
@@ -129,9 +129,8 @@ Executa e acompanha pacotes, ambientes e tarefas. Fonte: `instance-executor.cli`
 | Comando | Descrição |
 |---------|-----------|
 | `executor package [path]` | Executa um pacote. |
-| `executor env [path]` | Executa um ambiente. |
-| `executor stop` | Para a execução de tarefas, pacotes e ambiente. |
-| `executor env [executionId]` | Lista tarefas carregadas no task executor principal. |
+| `executor env [path]` | Executa um ambiente a partir de um caminho. |
+| `executor stop env [executionId]` | Para um ambiente em execução. |
 | `executor tasks` | Lista tarefas no task executor global. |
 | `executor environments` | Lista ambientes em execução. |
 | `executor monitor` | Monitora a atividade do Task Executor. |
@@ -148,7 +147,7 @@ executor show task 50
 Comandos relacionados (aplicação principal / executáveis instalados):
 
 ```bash
-start-instance-manager      # inicia o gerenciador de instâncias do ecossistema
+executor-manager            # inicia o gerenciador de instâncias do ecossistema
 run package <packagePath>   # executa um pacote (package-runner.cli)
 mypkg create library <nome> # cria um pacote (package-toolkit.cli)
 ```

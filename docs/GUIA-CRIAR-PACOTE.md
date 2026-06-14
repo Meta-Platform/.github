@@ -44,7 +44,8 @@ saudacao-utilities.lib/
 ### 1.2 `metadata/package.json` — o namespace
 
 O único metadado obrigatório de uma lib é o seu **namespace**. Use o prefixo
-`@/` (referência dentro do repositório):
+`@/` (referência a um package por namespace no conjunto de repositórios
+instalados, resolvida globalmente no `EcosystemData`):
 
 ```json
 {
@@ -200,11 +201,16 @@ Valores de inicialização específicos do pacote (lidos pelos comandos como
 
 ### 2.6 `src/Commands/Saudar.command.js` — o handler
 
-Um handler é uma função assíncrona que recebe `{ startupParams, params }`.
-`params` contém as libs declaradas em `parametersToLoad`:
+Um handler é uma função assíncrona que recebe `{ args, startupParams, params }`:
+
+- `args` — argumentos posicionais e *options* informados na CLI (ex.: o `nome`
+  declarado no `command-group.json`);
+- `startupParams` — valores de inicialização do pacote (de `metadata/startup-params.json`);
+- `params` — dependências (libs) injetadas via `parametersToLoad` / `bound-params`.
 
 ```javascript
 const SaudarCommand = async ({
+    args,
     startupParams,
     params
 }) => {
@@ -212,12 +218,16 @@ const SaudarCommand = async ({
 
     const Saudar = saudacaoUtilitiesLib.require("Saudar")
 
-    const { nome } = params
+    const { nome } = args
     console.log(Saudar(nome || "mundo"))
 }
 
 module.exports = SaudarCommand
 ```
+
+> `args` pode ser omitido no *destructuring* quando o comando não lê argumentos
+> (ex.: `async ({ startupParams, params }) => { … }`). Para comandos **com
+> parâmetros**, use a forma completa acima e leia os valores de `args`.
 
 ### 2.7 `package.json` e `README.md`
 
@@ -251,7 +261,7 @@ repo install MeuRepo LOCAL_FS --executables "saudar"
 saudar Meta-Platform
 
 # ao alterar o código, atualize
-repo update MeuRepo LOCAL_FS
+repo update MeuRepo
 ```
 
 Para execução isolada de baixo nível (sem instalar no ecossistema), use

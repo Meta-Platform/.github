@@ -24,7 +24,7 @@ O repositório raiz (`meta-platform-repo`) agrega quatro grandes peças:
 |-----------|-------|
 | [`Meta-Platform/`](https://github.com/Meta-Platform) | Ferramentas e o padrão aberto que **constroem e executam** a plataforma (wizard, executor, loader, open standard). |
 | [`repos/`](https://github.com/Meta-Platform) | Os **repositórios oficiais** de pacotes (essential, ecosystem-core, applications, native-applications-lab). |
-| [`thrid-party-repos/`](https://github.com/Meta-Platform) | Repositórios de terceiros / experimentais. |
+| [`thrid-party-repos/`](https://github.com/Meta-Platform) | Repositórios de terceiros / experimentais. ⚠️ `thrid-party-repos` é o nome **legado** do diretório (typo de *third*); a documentação mantém esse nome para refletir o path real. Uma futura migração pode padronizar para `third-party-repos`. |
 | `EcosystemData/` | (gerado, fora do controle de versão) O ecossistema **instalado** na máquina. Veja [Diretório do Ecossistema](#o-diretório-do-ecossistema-ecosystemdata). |
 
 ---
@@ -133,9 +133,10 @@ repository-manager.cli/
 ### Os metadados principais
 
 - **`package.json` (metadata)** — declara o `namespace` do pacote. O namespace
-  usa o prefixo `@/` para referências dentro do repositório (ex.:
-  `@/repository-manager.cli`), `@@/` para instâncias/serviços e `@//` para
-  referências internas de boot.
+  usa o prefixo `@/` para referenciar um package por namespace no conjunto de
+  repositórios instalados — declarado dentro de um repositório, mas resolvido
+  globalmente no `EcosystemData` (ex.: `@/repository-manager.cli`); `@@/` para
+  instâncias/serviços e `@//` para referências internas de boot.
 - **`boot.json`** — descreve o que o pacote *expõe* ao ser carregado. Para uma
   CLI, lista `executables` (o `executableName` é o comando que aparece no
   terminal, ex.: `repo`) e os `bound-params` — dependências resolvidas por

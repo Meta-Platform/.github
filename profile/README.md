@@ -76,7 +76,7 @@ Garanta que `EcosystemData/executables` esteja no `PATH`. Passo a passo:
 ```bash
 # usando o ecossistema instalado
 repo list installed
-start-instance-manager
+executor-manager
 supervisor status instance-manager.sock
 
 # ou execução isolada de um package (baixo nível)
