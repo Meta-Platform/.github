@@ -38,7 +38,7 @@ Leituras relacionadas:
 - Nome do pacote em **kebab-case**, sempre com o **sufixo do tipo**:
   `repository-manager.cli`, `print-data-log.lib`, `server-manager.service`.
 - Sufixos válidos: `.lib`, `.nativelib`, `.cli`, `.service`, `.webservice`,
-  `.webgui`, `.webapp`, `.app` (ver
+  `.webgui`, `.webapp`, `.desktopapp`, `.app` (ver
   [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md)).
 - O **namespace** (em `metadata/package.json`) é `@/<nome-do-pacote>` — ex.:
   `@/repository-manager.cli`.
@@ -232,6 +232,61 @@ Implementa um tipo de *object loader* consumido pelo *task executor* (ver
 [Tipos de Object Loader](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/tipos-de-object-loader.md)).
 Fica na raiz de `src/` e seu nome reflete o tipo (`ApplicationInstance.taskLoader.js`
 → `application-instance`).
+
+### 4.5 Aplicação desktop (`.desktopapp`)
+
+Aplicação desktop nativa: abre uma ou mais **janelas Electron**. No **modo
+primário**, o `.desktopapp` **combina a composição de um webapp** — os mesmos
+`services` e `endpoints` que sobem um backend HTTP local e o webgui (compilado em
+runtime) — com uma seção `windows`. A janela faz
+`BrowserWindow.loadURL(http://localhost:{port}/)`, apontando para esse servidor
+local. No **modo alternativo**, a janela carrega HTML estático do disco via
+`BrowserWindow.loadFile` (sem servidor HTTP), para conteúdo autossuficiente.
+
+O `boot.json` combina, então, a composição do webapp (services/endpoints) com uma
+seção `windows` (array). Cada janela aceita:
+
+| Campo | Obrigatório | Descrição |
+|-------|-------------|-----------|
+| `url` | sim (modo `loadURL`) | URL do servidor local a carregar. Usa template de **valor inteiro** (`"url": "{{windowUrl}}"`, onde `windowUrl` é uma startup-param, ex.: `http://localhost:8083/`). Interpolação embutida na string **não** é suportada. |
+| `bound-params` | modo `loadURL` | Dependências resolvidas por namespace; use `{ "serverService": "@@/server-service" }` para a janela esperar o servidor. |
+| `file` | sim (modo `loadFile`) | Caminho do HTML estático, relativo à raiz do package que fornece o conteúdo. |
+| `dependency` | não (modo `loadFile`) | Namespace do package que fornece o `file` (ex.: `@/api-designer.webgui`). |
+| `title` | não | Título da janela. |
+| `width` / `height` | não | Dimensões da janela. |
+
+Exemplo real: o `api-designer.desktopapp` roda a **mesma aplicação** do
+`api-designer.webapp` (mesmos services/endpoints) dentro de uma janela Electron, na
+porta `8083` (o webapp usa `8082`). O webgui **não** tem `dist/` estático — é
+buildado em runtime e depende do backend HTTP; por isso `loadFile` puro não serve
+para ele.
+
+```json
+{
+    "params": [],
+    "windows": [
+        {
+            "title": "API Designer",
+            "url": "{{windowUrl}}",
+            "bound-params": {
+                "serverService": "@@/server-service"
+            },
+            "width": 1280,
+            "height": 800
+        }
+    ]
+}
+```
+
+Cada janela é instanciada pelo object loader `desktop-window-instance`
+(implementado pela `desktop-window-instance.lib`, em `EssentialTaskLoaders.layer`).
+No modo `loadURL`, a janela **espera o serviço `@@/server-service` ficar `ACTIVE`**
+(via os `agentLinkRules` gerados a partir do `bound-param` `serverService`) e
+reintenta o load enquanto o webgui compila. No modo `loadFile`, a janela abre o
+HTML estático diretamente. O Electron é dependência declarada da
+`desktop-window-instance.lib` (no `package.json`) e instalado em runtime como
+qualquer outra dependência de package. No `applications.json` o executável
+correspondente usa `appType: "DESKTOP"`.
 
 ---
 

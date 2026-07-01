@@ -180,6 +180,11 @@ Cria novos pacotes (scaffolding). Fonte: `package-toolkit.cli`
 | `mypkg create commandline [packageName]` | Cria uma CLI (`.cli`). |
 | `mypkg create services [packageName]` | Cria um pacote de serviços (`.service`). |
 
+> O scaffolding gera apenas estes três tipos (`library`, `commandline`,
+> `services`). Outros tipos de pacote — como `.webapp`, `.desktopapp` ou `.app` —
+> ainda **não** são gerados pelo `mypkg create` e devem ser criados manualmente
+> seguindo o [Guia: Criar um Pacote](./GUIA-CRIAR-PACOTE.md).
+
 ---
 
 ## `pkg-exec` — Package Executor (baixo nível)

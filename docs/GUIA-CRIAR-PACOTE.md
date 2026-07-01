@@ -24,7 +24,8 @@ Um pacote sempre vive dentro da hierarquia
   `Apps.Module`.
 
 O **nome da pasta** do pacote termina sempre com o sufixo do tipo: `.lib`,
-`.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.app`, `.nativelib`.
+`.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.desktopapp`, `.app`,
+`.nativelib`.
 
 ---
 

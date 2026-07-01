@@ -23,6 +23,7 @@ conceitos do sistema.
 | **CLI** | Aplicação de linha de comando (package `.cli`); expõe um comando no terminal. `appType: "CLI"`. |
 | **Service** | Serviço de back-end (package `.service`); expõe serviços listados em `services.json`, consumidos por outros packages. |
 | **WebApp** | Aplicação web composta (package `.webapp`); integra webgui + webservice sobre um servidor HTTP. |
+| **DesktopApp** | Aplicação desktop nativa (package `.desktopapp`); abre uma ou mais janelas Electron; tipicamente encapsula uma app web local que sobe junto (`loadURL`); também suporta HTML local (`loadFile`). `appType: "DESKTOP"`. |
 | **WebGUI** | Interface web / front-end (package `.webgui`). |
 | **WebService** | Serviço HTTP / API (package `.webservice`); expõe um `endpoint-group`. |
 | **Library** | Biblioteca reutilizável (package `.lib`; `.nativelib` para nativas); consumida por outros packages via namespace. |
