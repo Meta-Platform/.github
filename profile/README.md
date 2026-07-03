@@ -59,8 +59,8 @@ Mapa completo: [repository-map](https://github.com/Meta-Platform/.github/blob/ma
 ## Como instalar
 
 ```bash
-# baixar o wizard (release binária)
-wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/latest/download/meta-platform-setup-wizard-command-line-linux-x64 -O mywizard
+# baixar o wizard (release binária; ajuste a versão se necessário)
+wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/download/0.0.19/meta-platform-setup-wizard-command-line-0.0.19-preview-linux-x64 -O mywizard
 chmod +x mywizard
 
 # instalar um ecossistema

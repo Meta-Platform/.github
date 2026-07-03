@@ -19,14 +19,14 @@ conceitos do sistema.
 | **Package** | A unidade atômica e autodescritiva da plataforma; pasta com sufixo de tipo e uma pasta `metadata/`. Ver [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md). |
 | **Executable** | Ponto de entrada nomeado que um package expõe (comando no terminal ou app/serviço iniciado pelo ecossistema). Declarado em `boot.json` (package) e `applications.json` (repositório). Ver [Executable](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/executable.md). |
 | **Application** | Package que representa uma aplicação do ecossistema (sufixo `.app`), capaz de subir serviços e endpoints. |
-| **App** | Valor de `appType` em `applications.json` para aplicações (em oposição a `CLI`). Tipicamente vem de packages `.app`/`.webapp`. |
+| **App** | Aplicação registrada em `applications.json` com `appType: "APP"` (os outros valores são `"CLI"` e `"DESKTOP"`). Tipicamente vem de packages `.app`/`.webapp`. |
 | **CLI** | Aplicação de linha de comando (package `.cli`); expõe um comando no terminal. `appType: "CLI"`. |
 | **Service** | Serviço de back-end (package `.service`); expõe serviços listados em `services.json`, consumidos por outros packages. |
 | **WebApp** | Aplicação web composta (package `.webapp`); integra webgui + webservice sobre um servidor HTTP. |
 | **DesktopApp** | Aplicação desktop nativa (package `.desktopapp`); abre uma ou mais janelas Electron; tipicamente encapsula uma app web local que sobe junto (`loadURL`); também suporta HTML local (`loadFile`). `appType: "DESKTOP"`. |
 | **WebGUI** | Interface web / front-end (package `.webgui`). |
 | **WebService** | Serviço HTTP / API (package `.webservice`); expõe um `endpoint-group`. |
-| **Library** | Biblioteca reutilizável (package `.lib`; `.nativelib` para nativas); consumida por outros packages via namespace. |
+| **Library** | Biblioteca reutilizável (package `.lib`); consumida por outros packages via namespace. O sufixo `.nativelib` (bibliotecas nativas) é **experimental** e ainda não é reconhecido pela descoberta de pacotes da plataforma. |
 | **Runtime Environment** | Diretório isolado criado para cada execução de um package, em `EcosystemData/environments/` (nome do package + hash). Contém `metadata-hierarchy.json`, `execution-params.json` e `.dependencies/`. Ver [Runtime Environment](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/runtime-environment.md). |
 | **Package Executor** | Ferramenta que executa um package isolado: cria o runtime environment, resolve dependências, gera o execution params e dispara o task executor. Repositório: [meta-platform-package-executor-command-line](https://github.com/Meta-Platform/meta-platform-package-executor-command-line) (comando `pkg-exec`). |
 | **Setup Wizard** | Instalador do ecossistema a partir de installation profiles. Repositório: [meta-platform-setup-wizard-command-line](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line) (comando `mywizard`). |

@@ -162,9 +162,15 @@ Variante de manutenção do wizard, embutida no `essential-repository`
 | Comando | Descrição |
 |---------|-----------|
 | `mytoolkit list-profiles` | Lista os perfis de instalação. |
-| `mytoolkit install [profile]` | Instala um ecossistema conforme o perfil. |
-| `mytoolkit update [profile]` | Atualiza um ecossistema conforme o perfil. |
+| `mytoolkit install [profile]` | Instala um ecossistema conforme o perfil. Opções: `--profile-file` (arquivo de perfil de instalação) e `--installation-path` (onde instalar). |
+| `mytoolkit update [profile]` | Atualiza um ecossistema conforme o perfil. Opções: `--profile-file` e `--installation-path`. |
 | `mytoolkit show profile [profile]` | Mostra informações de um perfil. |
+
+> **Atenção:** o carregador de perfis do `maintenance-toolkit.cli` está
+> **quebrado** no momento — ele faz `require` de arquivos de perfil que não
+> existem no pacote. Na prática, `list-profiles`, `install` e `update` falham
+> com `MODULE_NOT_FOUND`, e `show profile` referencia perfis inexistentes.
+> Para instalar/atualizar um ecossistema, use o `mywizard` (acima).
 
 ---
 

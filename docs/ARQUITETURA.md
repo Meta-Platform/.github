@@ -55,9 +55,11 @@ Repository            (ex.: essential-repository)
 ```
 
 ### Repository
-Unidade distribuível e versionável (um repositório Git). Cada repositório tem um
-`README.md` na raiz e um diretório `metadata/` (ex.: `applications.json`). Os
-repositórios oficiais ficam em [`repos/`](https://github.com/Meta-Platform):
+Unidade distribuível e versionável (um repositório Git). Os repositórios
+oficiais têm um `README.md` na raiz e um diretório `metadata/` (ex.:
+`applications.json`) — a exceção é o `native-applications-lab-repository`,
+laboratório experimental que ainda não segue esse padrão. Os repositórios
+oficiais ficam em [`repos/`](https://github.com/Meta-Platform):
 
 - [**essential-repository**](https://github.com/Meta-Platform/meta-platform-essential-repository/blob/main/README.md) — o núcleo:
   runtime, executor de tarefas, bibliotecas comuns e as CLIs essenciais
@@ -67,8 +69,9 @@ repositórios oficiais ficam em [`repos/`](https://github.com/Meta-Platform):
 - [**applications-repository**](https://github.com/Meta-Platform/meta-platform-applications-repository/blob/main/README.md) —
   aplicações de usuário final (datasource-manager, api-designer,
   package-developer, MyDesktop, etc.).
-- **native-applications-lab-repository** — laboratório de pacotes nativos
-  (`.nativelib`).
+- **native-applications-lab-repository** — laboratório **experimental** de
+  pacotes nativos (`.nativelib`); ainda sem `README.md`/`metadata/` e fora do
+  padrão de descoberta da plataforma.
 
 ### Module (`*.Module`)
 Divisão macro de responsabilidade dentro de um repositório. Convenções
@@ -100,7 +103,7 @@ A unidade atômica. O **sufixo** indica o tipo do pacote:
 |--------|------|-----------|
 | `.cli` | Command-line | Aplicação de linha de comando (expõe um executável). |
 | `.lib` | Library | Biblioteca reutilizável (JavaScript). |
-| `.nativelib` | Native library | Biblioteca nativa (ex.: addon C++/Rust). |
+| `.nativelib` | Native library | Biblioteca nativa (ex.: addon C++/Rust). **Experimental**: ainda não é reconhecida pela descoberta de pacotes da plataforma (fora de `REPOS_CONF_EXTLIST_PKG_TYPE`). |
 | `.service` | Service | Serviço de back-end de longa duração. |
 | `.webservice` | Web service | Serviço HTTP / API. |
 | `.webgui` | Web GUI | Interface web (front-end). |

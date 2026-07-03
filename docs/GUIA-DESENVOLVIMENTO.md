@@ -37,9 +37,12 @@ Leituras relacionadas:
 
 - Nome do pacote em **kebab-case**, sempre com o **sufixo do tipo**:
   `repository-manager.cli`, `print-data-log.lib`, `server-manager.service`.
-- Sufixos válidos: `.lib`, `.nativelib`, `.cli`, `.service`, `.webservice`,
-  `.webgui`, `.webapp`, `.desktopapp`, `.app` (ver
+- Sufixos válidos: `.lib`, `.cli`, `.service`, `.webservice`, `.webgui`,
+  `.webapp`, `.desktopapp`, `.app` (ver
   [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md)).
+  Há ainda o sufixo **experimental** `.nativelib` (bibliotecas nativas), que a
+  descoberta de pacotes da plataforma ainda **não** reconhece (fora de
+  `REPOS_CONF_EXTLIST_PKG_TYPE` no `ecosystem-defaults.json`).
 - O **namespace** (em `metadata/package.json`) é `@/<nome-do-pacote>` — ex.:
   `@/repository-manager.cli`.
 
@@ -323,7 +326,7 @@ E um `.gitignore` com pelo menos `node_modules`.
 - **Entre pacotes:** sempre por **namespace** (`@/...`) declarado em
   `bound-params` — nunca `require("../../../outro-pacote")`.
   > Há um item de planejamento para melhorar as dependências internas e o
-  > `SmartRequire` (ver `note.md`).
+  > `SmartRequire`.
 - **NPM (de um pacote):** declaradas no `package.json` da raiz do pacote.
 
 ---
