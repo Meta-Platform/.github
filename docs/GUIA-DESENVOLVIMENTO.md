@@ -339,7 +339,7 @@ E um `.gitignore` com pelo menos `node_modules`.
 - [ ] Sufixos de papel corretos (`.command.js`, `.service.js`, …) nas pastas certas.
 - [ ] Dependências entre pacotes **por namespace**.
 - [ ] Estilo: arrow functions, aspas duplas, sem ponto e vírgula, 4 espaços (JS) / tab (JSON de metadata).
-- [ ] `README.md` descrevendo propósito, namespace, exports/comandos e dependências.
+- [ ] `README.md` no [padrão](./PADRAO-README-PACOTE.md): propósito, namespace, exports/comandos e dependências.
 - [ ] (Opcional, recomendado) Gerar o esqueleto com `mypkg create ...` e ajustar.
 
 ---

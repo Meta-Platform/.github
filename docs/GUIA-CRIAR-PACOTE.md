@@ -243,7 +243,10 @@ module.exports = SaudarCommand
 ```
 
 Inclua um `README.md` descrevendo o pacote, seus comandos e exemplos de uso —
-todos os pacotes oficiais seguem essa convenção.
+todos os pacotes oficiais seguem essa convenção. O formato é especificado no
+[Padrão de README de Pacote](./PADRAO-README-PACOTE.md): ficha de identidade
+(tipo, namespace, localização), `## Propósito` e uma seção de superfície pública
+que varia conforme o tipo do pacote.
 
 ---
 
@@ -280,7 +283,7 @@ Para execução isolada de baixo nível (sem instalar no ecossistema), use
 - [ ] (CLI) `command-group.json` lista os comandos e seus `parametersToLoad`.
 - [ ] Dependências entre pacotes são feitas **por namespace**, nunca por caminho
       relativo ao sistema de arquivos.
-- [ ] Há um `README.md` descrevendo o pacote.
+- [ ] Há um `README.md` no [padrão](./PADRAO-README-PACOTE.md).
 - [ ] O pacote está no `Module`/`Layer`/`Group` adequado ao seu tipo.
 
 ---
@@ -288,5 +291,6 @@ Para execução isolada de baixo nível (sem instalar no ecossistema), use
 ## Referências
 
 - [Arquitetura e Organização](./ARQUITETURA.md)
+- [Padrão de README de Pacote](./PADRAO-README-PACOTE.md)
 - [Tipos de Object Loader](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/tipos-de-object-loader.md)
 - [Execution Params Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/packages/execution-params-standard.md)
