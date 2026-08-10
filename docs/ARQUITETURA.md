@@ -107,6 +107,7 @@ A unidade atômica. O **sufixo** indica o tipo do pacote:
 | `.service` | Service | Serviço de back-end de longa duração. |
 | `.webservice` | Web service | Serviço HTTP / API. |
 | `.webgui` | Web GUI | Interface web (front-end). |
+| `.uilib` | UI library | Biblioteca de componentes de front-end (fonte + estilos), compilada **dentro do bundle** do consumidor. Não confundir com `.lib`, que é módulo carregado por `require()` em tempo de execução. |
 | `.webapp` | Web application | Aplicação web (webgui + webservice integrados). |
 | `.desktopapp` | Desktop application | Aplicação desktop nativa; abre uma ou mais janelas Electron; tipicamente encapsula uma app web local que sobe junto (`loadURL`); também suporta HTML local (`loadFile`). |
 | `.app` | Application | Aplicação/instância do ecossistema. |

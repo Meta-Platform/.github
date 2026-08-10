@@ -37,7 +37,7 @@ Leituras relacionadas:
 
 - Nome do pacote em **kebab-case**, sempre com o **sufixo do tipo**:
   `repository-manager.cli`, `print-data-log.lib`, `server-manager.service`.
-- Sufixos válidos: `.lib`, `.cli`, `.service`, `.webservice`, `.webgui`,
+- Sufixos válidos: `.lib`, `.uilib`, `.cli`, `.service`, `.webservice`, `.webgui`,
   `.webapp`, `.desktopapp`, `.app` (ver
   [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md)).
   Há ainda o sufixo **experimental** `.nativelib` (bibliotecas nativas), que a
