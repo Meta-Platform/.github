@@ -4,9 +4,29 @@ Este guia mostra como instalar um ecossistema **Meta Platform** e usar os
 comandos do dia a dia. Para entender a organização do projeto, veja
 [Arquitetura](./ARQUITETURA.md).
 
-> **Pré-requisitos:** Git instalado e ambiente Linux x64 (as releases binárias
-> são publicadas para `linux-x64`). **Node.js** só é necessário para instalar a
-> partir do código (Opção B) — veja as notas de cada cenário abaixo.
+> **Pré-requisitos:** ambiente Linux x64 (as releases binárias são publicadas
+> para `linux-x64`) e, em Debian/Ubuntu:
+>
+> ```bash
+> sudo apt-get update
+> sudo apt-get install -y git curl wget ca-certificates build-essential python3
+> ```
+>
+> Mais **Node.js 22** disponível no `PATH` (por exemplo via
+> [nvm](https://github.com/nvm-sh/nvm): `nvm install 22 && nvm use 22`).
+>
+> **Node.js é necessário para INSTALAR um ecossistema, não apenas para a Opção B.**
+> O binário do wizard é autocontido para *executar*, mas a instalação resolve
+> dependências NPM no seu ambiente. Sem `node` no `PATH`, `mywizard install`
+> termina com código 1 e um log de três linhas, **sem mensagem de erro** — o
+> sintoma não indica a causa.
+>
+> **`build-essential` e `python3` também não são opcionais.** Quando alguma
+> dependência não tem binário pronto para a sua combinação de Node/SO, a
+> instalação cai para `node-gyp rebuild`; sem compilador ela falha com
+> `Error: command failed`, que igualmente não menciona o compilador.
+>
+> Verifique antes de instalar: `which node && gcc --version && python3 --version`.
 
 ---
 
@@ -17,15 +37,24 @@ O `mywizard` é a porta de entrada: ele instala e atualiza ecossistemas.
 ### Opção A — usar a release binária
 
 ```bash
-# baixe a última release (ajuste a versão se necessário)
-wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/download/0.0.19/meta-platform-setup-wizard-command-line-0.0.19-preview-linux-x64 -O mywizard
+# baixe a última release (confira a versão mais recente antes)
+wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/download/0.0.24/meta-platform-setup-wizard-command-line-0.0.24-preview-linux-x64 -O mywizard
 chmod +x mywizard
 ./mywizard --help
 ```
 
+> **Use uma release recente.** Versões antigas do wizard deixam de instalar
+> quando o `EssentialRepo` evolui: a `0.0.19` (janeiro/2025), que este guia
+> exemplificava, hoje falha com
+> `Cannot find module .../print-data-log.lib/src/PrintDataLog` — a biblioteca foi
+> removida do `EssentialRepo`, e o binário publicado ainda dependia dela. A
+> `0.0.24` foi verificada numa instalação limpa (Ubuntu 24.04). A lista completa
+> está em
+> [releases](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases).
+
 > O binário é **autocontido** (empacotado com [`pkg`](https://github.com/yao-pkg/pkg),
-> target `node22-linux-x64` no script `build`): **não exige Node.js instalado**
-> para ser executado.
+> target `node22-linux-x64` no script `build`): não exige Node.js para **ser
+> executado** — mas a instalação que ele conduz exige, veja os pré-requisitos.
 
 ### Opção B — a partir do código (desenvolvimento)
 
