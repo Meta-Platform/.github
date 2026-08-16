@@ -5,6 +5,16 @@ Antes de começar, recomendamos ler a seção
 [Anatomia de um pacote](./ARQUITETURA.md#anatomia-de-um-pacote) do documento de
 arquitetura.
 
+> **A linguagem é TypeScript.** Um pacote novo nasce em `.ts`; JavaScript
+> continua executando, mas não é mais o padrão. **Não há passo de compilação:**
+> o Node (>= 22.18) apaga os tipos ao carregar o arquivo, e o módulo continua
+> **CommonJS** (`require` + `module.exports`) — o que mudou é o dialeto, não a
+> forma. As regras estão no
+> [Source Language Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/source-language-standard.md).
+>
+> O `mypkg create ...` já gera os arquivos de `src/` em `.ts` e escreve o
+> `tsconfig.json` do pacote; os passos abaixo produzem o mesmo resultado à mão.
+
 Vamos criar dois exemplos:
 
 1. Uma **biblioteca** (`.lib`) — a unidade reutilizável mais simples.
@@ -24,9 +34,14 @@ Um pacote sempre vive dentro da hierarquia
   `Apps.Module`.
 
 O **nome da pasta** do pacote termina sempre com o sufixo do tipo: `.lib`,
-`.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.desktopapp`, `.app`.
+`.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.desktopapp`, `.app`,
+`.uilib`, `.wasmlib`.
 (Há ainda o sufixo **experimental** `.nativelib`, que a descoberta de pacotes da
 plataforma ainda **não** reconhece.)
+
+> Para um módulo **WebAssembly** (`.wasmlib`), o passo a passo é outro — o pacote
+> carrega um binário versionado e um manifesto próprio. Veja o
+> [Guia: WebAssembly na Plataforma](./GUIA-WEBASSEMBLY.md).
 
 ---
 
@@ -39,7 +54,8 @@ saudacao-utilities.lib/
 ├── metadata/
 │   └── package.json
 ├── src/
-│   └── Saudar.js
+│   └── Saudar.ts
+├── tsconfig.json
 └── package.json
 ```
 
@@ -66,13 +82,13 @@ instalados, resolvida globalmente no `EcosystemData`):
 }
 ```
 
-### 1.4 `src/Saudar.js` — um módulo da lib
+### 1.4 `src/Saudar.ts` — um módulo da lib
 
 Cada arquivo em `src/` é um módulo exportado individualmente. Mantenha-os
 pequenos e com responsabilidade única:
 
-```javascript
-const Saudar = (nome) => `Olá, ${nome}!`
+```ts
+const Saudar = (nome: string): string => `Olá, ${nome}!`
 
 module.exports = Saudar
 ```
@@ -80,14 +96,30 @@ module.exports = Saudar
 Outros pacotes consomem a lib pelo namespace e carregam módulos por nome com
 `.require(...)`:
 
-```javascript
+```ts
 // dentro de um pacote que recebeu `saudacaoUtilitiesLib` como bound-param
 const Saudar = saudacaoUtilitiesLib.require("Saudar")
 console.log(Saudar("Meta Platform"))
 ```
 
 > **Convenção:** arquivos em `src/` usam `PascalCase`. Comandos de CLI usam o
-> sufixo `.command.js`.
+> sufixo `.command.ts`.
+
+### 1.5 `tsconfig.json` — o que põe o pacote sob verificação
+
+Um arquivo só, estendendo o `tsconfig.base.json` da **raiz do repositório** (a
+quantidade de `../` varia com a profundidade do pacote):
+
+```json
+{
+    "extends": "../../../tsconfig.base.json",
+    "include": ["src/**/*.ts", "../../../types/**/*.d.ts"]
+}
+```
+
+Nada em tempo de execução depende dele — a checagem (`verify-typescript`) é um
+gate, não um passo de build. Mas sem o arquivo o pacote fica invisível para o
+verificador, e a checagem passa a mentir por omissão.
 
 ---
 
@@ -106,9 +138,10 @@ saudacao-manager.cli/
 │   └── startup-params.json  # parâmetros de inicialização
 ├── src/
 │   ├── Commands/
-│   │   └── Saudar.command.js
+│   │   └── Saudar.command.ts
 │   ├── Helpers/
 │   └── Configs/
+├── tsconfig.json
 ├── package.json
 └── README.md
 ```
@@ -183,7 +216,7 @@ Campos importantes de cada comando:
 | Campo | Função |
 |-------|--------|
 | `commandName` | Nome interno do comando. |
-| `path` | Caminho do handler em `src/` (sem `.js`). |
+| `path` | Caminho do handler em `src/` (sem extensão). |
 | `command` | Assinatura no estilo yargs (`install [a] [b]`). |
 | `description` | Texto exibido no `--help`. |
 | `parameters` | Lista de parâmetros: `paramType` é `positional` ou `option`; `valueType` é `string`, `array`, etc. |
@@ -201,7 +234,7 @@ Valores de inicialização específicos do pacote (lidos pelos comandos como
 }
 ```
 
-### 2.6 `src/Commands/Saudar.command.js` — o handler
+### 2.6 `src/Commands/Saudar.command.ts` — o handler
 
 Um handler é uma função assíncrona que recebe `{ args, startupParams, params }`:
 
@@ -210,11 +243,15 @@ Um handler é uma função assíncrona que recebe `{ args, startupParams, params
 - `startupParams` — valores de inicialização do pacote (de `metadata/startup-params.json`);
 - `params` — dependências (libs) injetadas via `parametersToLoad` / `bound-params`.
 
-```javascript
+```ts
 const SaudarCommand = async ({
     args,
     startupParams,
     params
+}: {
+    args: any
+    startupParams: any
+    params: any
 }) => {
     const { saudacaoUtilitiesLib } = params
 
@@ -279,6 +316,8 @@ Para execução isolada de baixo nível (sem instalar no ecossistema), use
 
 - [ ] A pasta tem o **sufixo** correto (`.lib`, `.cli`, …).
 - [ ] `metadata/package.json` define o **namespace** com prefixo `@/`.
+- [ ] Os módulos de `src/` são `.ts` e há um `tsconfig.json` estendendo o
+      `tsconfig.base.json` do repositório.
 - [ ] (CLI) `boot.json` declara `executables` e `bound-params`.
 - [ ] (CLI) `command-group.json` lista os comandos e seus `parametersToLoad`.
 - [ ] Dependências entre pacotes são feitas **por namespace**, nunca por caminho

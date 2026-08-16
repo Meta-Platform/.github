@@ -12,8 +12,11 @@ comandos do dia a dia. Para entender a organização do projeto, veja
 > sudo apt-get install -y git curl wget ca-certificates build-essential python3
 > ```
 >
-> Mais **Node.js 22** disponível no `PATH` (por exemplo via
-> [nvm](https://github.com/nvm-sh/nvm): `nvm install 22 && nvm use 22`).
+> Mais **Node.js 22.18 ou superior** disponível no `PATH` (por exemplo via
+> [nvm](https://github.com/nvm-sh/nvm): `nvm install 22 && nvm use 22`). O piso
+> é `22.18` porque é a partir dessa versão que o Node executa `.ts` apagando os
+> tipos, e o código da plataforma é TypeScript — abaixo disso o ecossistema
+> recusa a execução no ponto de entrada.
 >
 > **Node.js é necessário para INSTALAR um ecossistema, não apenas para a Opção B.**
 > O binário do wizard é autocontido para *executar*, mas a instalação resolve

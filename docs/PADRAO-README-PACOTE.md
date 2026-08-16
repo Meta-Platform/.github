@@ -101,7 +101,7 @@ README é o único lugar que diz como reproduzi-lo.
 
 | Módulo | Responsabilidade |
 |---|---|
-| `RegisterLaunch.js` | Registra uma instância recém-lançada. |
+| `RegisterLaunch.ts` | Registra uma instância recém-lançada. |
 ```
 
 Um pacote `.lib` que também exponha serviços acrescenta a seção de `.service`.

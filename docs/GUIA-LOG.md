@@ -9,7 +9,7 @@ aqui é o dia a dia.
 
 Não importe nada. Não declare nada no metadado. O `Log` já existe:
 
-```js
+```ts
 Log.info("UpdateRepository", "Atualizando...")
 ```
 
@@ -36,7 +36,7 @@ digitou o comando precisa ler aquilo, é `message`.
 
 ## Os três argumentos
 
-```js
+```ts
 Log.error("CreateEnvironmentDir", "falhou ao criar o diretório", { path, error })
 ```
 
@@ -48,14 +48,14 @@ Log.error("CreateEnvironmentDir", "falhou ao criar o diretório", { path, error 
 
 Não concatene dados na mensagem quando eles couberem em `data`:
 
-```js
+```ts
 Log.error("GetIcon", "falha ao obter o ícone", { packageName, workspace })   // filtrável
 Log.error("GetIcon", `falha em ${packageName} / ${workspace}`)                // texto morto
 ```
 
 ## Não repetir o source
 
-```js
+```ts
 const log = Log.source("UpdateRepository")
 
 log.info("Atualizando...")
@@ -67,7 +67,7 @@ log.error("falhou", { error })
 Num *object loader*, carimbe uma vez e todo log daquela execução sai
 identificado — sem passar nada adiante:
 
-```js
+```ts
 const log = Log
     .child({ instanceId : process.env.META_LAUNCH_ID, environmentPath })
     .source("ServiceInstance")
@@ -93,7 +93,7 @@ dentro de um ambiente.
 
 ## No navegador (webgui)
 
-```js
+```ts
 import BrowserLog from "../Utils/BrowserLog"
 
 BrowserLog.warn("MinhaTela", "o usuário tentou X sem Y")

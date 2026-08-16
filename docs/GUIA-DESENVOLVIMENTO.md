@@ -56,8 +56,8 @@ Leituras relacionadas:
 
 ### 2.3 Arquivos e pastas em `src/`
 
-- **Módulos** (`.js`): **`PascalCase`**, e o nome do arquivo é **igual** ao nome
-  da função/valor exportado. Ex.: `ResolvePackageName.js` exporta
+- **Módulos** (`.ts`): **`PascalCase`**, e o nome do arquivo é **igual** ao nome
+  da função/valor exportado. Ex.: `ResolvePackageName.ts` exporta
   `ResolvePackageName`.
 - **Pastas** em `src/`: `PascalCase`, geralmente no plural por papel —
   `Commands/`, `Services/`, `Managers/`, `Helpers/`, `Utils/`, `Configs/`.
@@ -66,47 +66,55 @@ Leituras relacionadas:
 
 | Sufixo | Usado para | Pasta | Exporta |
 |--------|------------|-------|---------|
-| `*.command.js` | handler de um comando de CLI | `Commands/` | `XCommand` |
-| `*.service.js` | um serviço | `Services/` | `XService` |
-| `*.taskLoader.js` | um *object loader* (task loader) | (raiz de `src/`) | `XTaskLoader`/`X` |
-| `*.manager.js` | um *manager* (orquestrador) | `Managers/` | `XManager`/`X` |
+| `*.command.ts` | handler de um comando de CLI | `Commands/` | `XCommand` |
+| `*.service.ts` | um serviço | `Services/` | `XService` |
+| `*.taskLoader.ts` | um *object loader* (task loader) | (raiz de `src/`) | `XTaskLoader`/`X` |
+| `*.manager.ts` | um *manager* (orquestrador) | `Managers/` | `XManager`/`X` |
 
-> Exemplos reais: `ListSources.command.js`, `HTTPServer.service.js`,
-> `ApplicationInstance.taskLoader.js`, `InstanceMonitoring.manager.js`.
+> Exemplos reais: `ListSources.command.ts`, `HTTPServer.service.ts`,
+> `ApplicationInstance.taskLoader.ts`, `InstanceMonitoring.manager.ts`.
 
 ### 2.4 Variáveis e constantes
 
 - **Funções e módulos exportados:** `PascalCase`.
 - **Variáveis e parâmetros locais:** `camelCase`.
 - **Constantes de nível de módulo:** `UPPER_SNAKE_CASE`
-  (ex.: `const EXT_TYPE = "lib"`, `const FILE_EXT = "js"`).
+  (ex.: `const EXT_TYPE = "lib"`, `const FILE_EXT = "ts"`).
 - **`bound-params`** (dependências injetadas): `camelCase` com sufixo que indica o
   tipo — `...Lib` para bibliotecas e `...Service` para serviços
   (ex.: `jsonFileUtilitiesLib`, `printDataLogLib`, `serverService`).
 
 ---
 
-## 3. Estilo de código (JavaScript)
+## 3. Estilo de código (TypeScript)
 
-A base é **Node.js + CommonJS** (`require`/`module.exports`), sem TypeScript no
-back-end (as `.webgui` usam React/TSX). As regras abaixo refletem o padrão
-predominante no código.
+A base é **Node.js + CommonJS** (`require`/`module.exports`) escrita em
+**TypeScript**. Não há passo de compilação: o Node (>= 22.18) apaga os tipos ao
+carregar o `.ts`, e por isso só é permitida a sintaxe que **desaparece** com
+eles — nada de `enum`, `namespace`, decorator ou parâmetro-propriedade. Uma
+dependência entra pelo `require` anotado
+(`const fs = require("fs") as typeof import("fs")`) e um tipo, por `import type`;
+`import` de valor transformaria o arquivo em ESM e quebraria o `module.exports`.
+As regras completas estão no
+[Source Language Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/source-language-standard.md).
+JavaScript continua executando, e os dois dialetos convivem no mesmo pacote — mas
+o padrão é `.ts`. As regras abaixo refletem o padrão predominante no código.
 
 ### 3.1 Estrutura de um módulo
 
-```javascript
+```ts
 // 1) imports de libs externas e builtins (builtins com prefixo node: quando aplicável)
-const { resolve } = require("path")
-const { mkdir }   = require("node:fs/promises")
+const { resolve } = require("path") as typeof import("path")
+const { mkdir }   = require("node:fs/promises") as typeof import("node:fs/promises")
 
 // 2) imports internos do próprio pacote
-const CreateUtf8TextFile = require("./Utils/CreateUtf8TextFile")
+const CreateUtf8TextFile = require("./Utils/CreateUtf8TextFile") as (filePath: string, content: string) => Promise<void>
 
 // 3) constantes de módulo (UPPER_SNAKE_CASE)
-const FILE_EXT = "js"
+const FILE_EXT = "ts"
 
 // 4) a função/valor único do arquivo (PascalCase, == nome do arquivo)
-const CreateThing = async ({ packagePath, functionName }) => {
+const CreateThing = async ({ packagePath, functionName }: { packagePath: string, functionName: string }) => {
     // ...
 }
 
@@ -129,7 +137,7 @@ module.exports = CreateThing
 
 ### 3.3 Indentação
 
-> **Estado atual:** o código JS está **misturado** — há arquivos com **tabs** e
+> **Estado atual:** o código-fonte está **misturado** — há arquivos com **tabs** e
 > arquivos com **4 espaços**. Para código novo, **use 4 espaços** (é o que o
 > `package-toolkit.lib` gera). **Não misture** tabs e espaços no mesmo arquivo.
 >
@@ -143,7 +151,7 @@ existe no repositório):
 ```ini
 root = true
 
-[*.js]
+[*.{ts,js}]
 indent_style = space
 indent_size = 4
 charset = utf-8
@@ -164,18 +172,21 @@ indent_style = tab
 - Cada módulo é exportado individualmente e consumido por outros pacotes via
   `lib.require("NomeDoModulo")`:
 
-```javascript
+```ts
 // quem recebe `jsonFileUtilitiesLib` como bound-param:
 const ReadJsonFile = jsonFileUtilitiesLib.require("ReadJsonFile")
 ```
 
-### 4.2 Comando de CLI (`*.command.js`)
+### 4.2 Comando de CLI (`*.command.ts`)
 
 Handler assíncrono que recebe `{ args, startupParams, params }`. `params` traz os
 `bound-params` declarados em `parametersToLoad`:
 
-```javascript
-const ListSourcesCommand = async ({ startupParams, params }) => {
+```ts
+const ListSourcesCommand = async ({ startupParams, params }: {
+    startupParams: any
+    params: any
+}) => {
     const { jsonFileUtilitiesLib } = params
     const { installDataDirPath } = startupParams
 
@@ -188,21 +199,25 @@ module.exports = ListSourcesCommand
 
 Esqueleto gerado por `mypkg create commandline <nome>`:
 
-```javascript
-const XCommand = async ({ args, startupParams, params }) => {
+```ts
+const XCommand = async ({ args, startupParams, params }: {
+    args: any
+    startupParams: any
+    params: any
+}) => {
 
 }
 
 module.exports = XCommand
 ```
 
-### 4.3 Serviço (`*.service.js`)
+### 4.3 Serviço (`*.service.ts`)
 
 Função que recebe `params` (incluindo callbacks de ciclo de vida como `onReady`/
 `onClose`) e **retorna um objeto** com a API pública do serviço:
 
-```javascript
-const HTTPServerService = (params) => {
+```ts
+const HTTPServerService = (params: any) => {
     const { name, port, onReady, middlewareService } = params
     // ... inicialização ...
     onReady()
@@ -214,8 +229,8 @@ module.exports = HTTPServerService
 
 Esqueleto gerado por `mypkg create services <nome>`:
 
-```javascript
-const XService = (params) => {
+```ts
+const XService = (params: any) => {
     const {
         // params e bound-params...
         onReady
@@ -229,11 +244,11 @@ const XService = (params) => {
 module.exports = XService
 ```
 
-### 4.4 Task loader (`*.taskLoader.js`)
+### 4.4 Task loader (`*.taskLoader.ts`)
 
 Implementa um tipo de *object loader* consumido pelo *task executor* (ver
 [Tipos de Object Loader](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/tipos-de-object-loader.md)).
-Fica na raiz de `src/` e seu nome reflete o tipo (`ApplicationInstance.taskLoader.js`
+Fica na raiz de `src/` e seu nome reflete o tipo (`ApplicationInstance.taskLoader.ts`
 → `application-instance`).
 
 ### 4.5 Aplicação desktop (`.desktopapp`)
@@ -336,9 +351,11 @@ E um `.gitignore` com pelo menos `node_modules`.
 - [ ] Pasta com o **sufixo** correto (`.lib`, `.cli`, …) em um `Layer`/`Group` adequado.
 - [ ] `metadata/package.json` com `namespace` `@/...`.
 - [ ] Módulos em `src/` em `PascalCase`, um export por arquivo.
-- [ ] Sufixos de papel corretos (`.command.js`, `.service.js`, …) nas pastas certas.
+- [ ] Sufixos de papel corretos (`.command.ts`, `.service.ts`, …) nas pastas certas.
+- [ ] `tsconfig.json` estendendo o `tsconfig.base.json` do repositório (o `mypkg`
+      escreve; sem ele o pacote fica fora do `verify-typescript`).
 - [ ] Dependências entre pacotes **por namespace**.
-- [ ] Estilo: arrow functions, aspas duplas, sem ponto e vírgula, 4 espaços (JS) / tab (JSON de metadata).
+- [ ] Estilo: arrow functions, aspas duplas, sem ponto e vírgula, 4 espaços (código) / tab (JSON de metadata).
 - [ ] `README.md` no [padrão](./PADRAO-README-PACOTE.md): propósito, namespace, exports/comandos e dependências.
 - [ ] (Opcional, recomendado) Gerar o esqueleto com `mypkg create ...` e ajustar.
 

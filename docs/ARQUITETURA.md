@@ -102,7 +102,7 @@ A unidade atômica. O **sufixo** indica o tipo do pacote:
 | Sufixo | Tipo | Descrição |
 |--------|------|-----------|
 | `.cli` | Command-line | Aplicação de linha de comando (expõe um executável). |
-| `.lib` | Library | Biblioteca reutilizável (JavaScript). |
+| `.lib` | Library | Biblioteca reutilizável (código de runtime Node.js; TypeScript por padrão). |
 | `.nativelib` | Native library | Biblioteca nativa (ex.: addon C++/Rust). **Experimental**: ainda não é reconhecida pela descoberta de pacotes da plataforma (fora de `REPOS_CONF_EXTLIST_PKG_TYPE`). |
 | `.service` | Service | Serviço de back-end de longa duração. |
 | `.webservice` | Web service | Serviço HTTP / API. |

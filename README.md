@@ -10,6 +10,7 @@ Repositório especial da organização **Meta Platform**. Concentra:
   - [Arquitetura e Organização](./docs/ARQUITETURA.md)
   - [Guia: Criar um Pacote](./docs/GUIA-CRIAR-PACOTE.md)
   - [Guia de Desenvolvimento](./docs/GUIA-DESENVOLVIMENTO.md)
+  - [Guia: WebAssembly na Plataforma](./docs/GUIA-WEBASSEMBLY.md)
   - [Referência de Comandos](./docs/REFERENCIA-COMANDOS.md)
 
 > Os repositórios de código ficam na organização
