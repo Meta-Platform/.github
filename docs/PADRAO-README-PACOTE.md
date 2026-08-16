@@ -64,12 +64,35 @@ Nesta ordem:
 | `.desktopapp` | aplicação desktop Electron |
 | `.taskLoader` | *task loader* |
 | `.nativelib` | biblioteca nativa |
+| `.wasmlib` | módulo WebAssembly |
 
 ## Superfície pública, por tipo de pacote
 
 Cada tipo declara sua superfície pública num arquivo de metadado diferente. A
 seção do README **espelha esse arquivo** — e cita qual é, entre crases, no
 próprio título.
+
+### `.wasmlib`
+
+```markdown
+## Manifesto (`metadata/wasmlib.json`)
+
+| Campo | Valor |
+|---|---|
+| `alias` | `@wasm-reference` |
+| `abi` | `core` |
+
+## Exports do módulo
+
+| Export | Assinatura | Responsabilidade |
+|---|---|---|
+| `sum_f32` | `(ptr, usize) -> f64` | Soma `len` floats a partir de `ptr`. |
+```
+
+A tabela de exports espelha o que o binário realmente exporta — o que
+`WebAssembly.Module.exports()` devolve, e não o que a fonte pretendia exportar.
+A seção **Build** é obrigatória neste tipo: o `.wasm` é versionado, então o
+README é o único lugar que diz como reproduzi-lo.
 
 ### `.lib`
 
