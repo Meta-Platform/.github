@@ -107,7 +107,7 @@ que os grava com `origin: "browser"`. Erro não tratado da tela entra sozinho.
 `Log` é para código que roda **dentro** do ecossistema. Seguem com `console`,
 de propósito:
 
-- ferramentas standalone (`scripts/`, `tools/`, `test.js` avulso) — rodam por
+- ferramentas standalone (`scripts/`, `tools/`, `test.ts` avulso) — rodam por
   `node`, fora do ecossistema, e ali `globalThis.Log` não existe;
 - código carregado **durante** a construção do próprio logger (os
   `SmartRequire`);

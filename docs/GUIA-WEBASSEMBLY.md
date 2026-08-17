@@ -409,9 +409,9 @@ simples, protocolo de memória e laço numérico, em ~100 linhas de Rust.
 `EngineeringToolsRepo/EngineeringTools.Module/Viewer.layer/mesh-normalizer.wasmlib`
 e, do lado do JavaScript,
 `3d-viewer.webservice/src/Utils/CreateMeshNormalizer.ts` (a ponte),
-`test/MeshNormalizerEquivalence.test.js` (equivalência byte a byte),
-`test/MeshNormalizerPerformance.test.js` (ganhos como asserção) e
-`tools/benchmark-mesh-normalizer.js` (medição em processos separados).
+`test/MeshNormalizerEquivalence.test.ts` (equivalência byte a byte),
+`test/MeshNormalizerPerformance.test.ts` (ganhos como asserção) e
+`tools/benchmark-mesh-normalizer.ts` (medição em processos separados).
 
 **Para o contrato do loader:**
 `EssentialRepo/Taskloaders.Module/Loaders.layer/wasm-module.taskLoader/README.md`.
