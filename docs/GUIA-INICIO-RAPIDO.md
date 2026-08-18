@@ -84,9 +84,15 @@ Perfis **registrados** (selecionáveis por nome):
 
 | Perfil | Origem dos pacotes | Repositórios |
 |--------|--------------------|--------------|
-| `release-minimal`        | Releases do GitHub        | `EssentialRepo` |
-| `release-standard`       | Releases do GitHub        | `EssentialRepo` + `EcosystemCoreRepo` |
+| `github-release-minimal`   | Releases do GitHub        | `EssentialRepo` |
+| `github-release-standard`  | Releases do GitHub        | `EssentialRepo` + `EcosystemCoreRepo` |
+| `github-release-full`      | Releases do GitHub        | `EssentialRepo` + `EcosystemCoreRepo` + `PlatformApplicationsRepo` |
 | `localfs-release-standard` | Sistema de arquivos local | `EssentialRepo` + `EcosystemCoreRepo` |
+
+`release-minimal`, `release-standard` e `release-full` são apelidos dos três
+primeiros. Há também os perfis `dev-*`, que instalam dentro do workspace de
+quem desenvolve a plataforma — `mywizard list-profiles` mostra a lista completa
+e corrente.
 
 Instale informando **sempre** um perfil registrado:
 
