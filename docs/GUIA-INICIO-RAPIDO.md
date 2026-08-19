@@ -41,18 +41,15 @@ O `mywizard` é a porta de entrada: ele instala e atualiza ecossistemas.
 
 ```bash
 # baixe a última release (confira a versão mais recente antes)
-wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/download/0.0.24/meta-platform-setup-wizard-command-line-0.0.24-preview-linux-x64 -O mywizard
+wget https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases/download/0.0.28/meta-platform-setup-wizard-command-line-0.0.28-preview-linux-x64 -O mywizard
 chmod +x mywizard
 ./mywizard --help
 ```
 
-> **Use uma release recente.** Versões antigas do wizard deixam de instalar
-> quando o `EssentialRepo` evolui: a `0.0.19` (janeiro/2025), que este guia
-> exemplificava, hoje falha com
-> `Cannot find module .../print-data-log.lib/src/PrintDataLog` — a biblioteca foi
-> removida do `EssentialRepo`, e o binário publicado ainda dependia dela. A
-> `0.0.24` foi verificada numa instalação limpa (Ubuntu 24.04). A lista completa
-> está em
+> **Use sempre a release mais recente.** O binário do wizard carrega o
+> `EssentialRepo` mínimo, e uma versão antiga deixa de instalar quando esse
+> repositório evolui — o sintoma é um `Cannot find module` de biblioteca removida.
+> A lista está em
 > [releases](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/releases).
 
 > O binário é **autocontido** (empacotado com [`pkg`](https://github.com/yao-pkg/pkg),

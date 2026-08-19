@@ -95,6 +95,7 @@ pkg-exec --package "/caminho/do/pacote" \
 | [Glossário](https://github.com/Meta-Platform/.github/blob/main/docs/glossario.md) | Termos canônicos. |
 | [Mapa de Repositórios](https://github.com/Meta-Platform/.github/blob/main/docs/repository-map.md) | Papel de cada repositório. |
 | [Fluxo de Execução](https://github.com/Meta-Platform/.github/blob/main/docs/execution-flow.md) | Do perfil à instância supervisionada. |
+| [Como o Código Chega ao Ar](https://github.com/Meta-Platform/.github/blob/main/docs/GUIA-PROVISIONAMENTO.md) | As cópias entre editar e executar, e como provar que chegou. |
 | [EcosystemData](https://github.com/Meta-Platform/.github/blob/main/docs/ecosystemdata.md) | Hierarquia do ecossistema instalado. |
 | [Guia de Início Rápido](https://github.com/Meta-Platform/.github/blob/main/docs/GUIA-INICIO-RAPIDO.md) · [Arquitetura](https://github.com/Meta-Platform/.github/blob/main/docs/ARQUITETURA.md) · [Criar um Pacote](https://github.com/Meta-Platform/.github/blob/main/docs/GUIA-CRIAR-PACOTE.md) · [Desenvolvimento](https://github.com/Meta-Platform/.github/blob/main/docs/GUIA-DESENVOLVIMENTO.md) · [Referência de Comandos](https://github.com/Meta-Platform/.github/blob/main/docs/REFERENCIA-COMANDOS.md) | Guias práticos. |
 

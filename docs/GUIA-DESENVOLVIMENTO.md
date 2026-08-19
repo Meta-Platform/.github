@@ -36,13 +36,10 @@ Leituras relacionadas:
 ### 2.1 Pacotes
 
 - Nome do pacote em **kebab-case**, sempre com o **sufixo do tipo**:
-  `repository-manager.cli`, `print-data-log.lib`, `server-manager.service`.
-- Sufixos válidos: `.lib`, `.uilib`, `.cli`, `.service`, `.webservice`, `.webgui`,
-  `.webapp`, `.desktopapp`, `.app` (ver
-  [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md)).
-  Há ainda o sufixo **experimental** `.nativelib` (bibliotecas nativas), que a
-  descoberta de pacotes da plataforma ainda **não** reconhece (fora de
-  `REPOS_CONF_EXTLIST_PKG_TYPE` no `ecosystem-defaults.json`).
+  `repository-manager.cli`, `logger.lib`, `server-manager.service`.
+- **A lista dos sufixos válidos é canônica no Open Standard**, em
+  [Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md) — consulte-a lá em vez de confiar numa
+  cópia, porque tipos novos entram por lá.
 - O **namespace** (em `metadata/package.json`) é `@/<nome-do-pacote>` — ex.:
   `@/repository-manager.cli`.
 
@@ -82,7 +79,7 @@ Leituras relacionadas:
   (ex.: `const EXT_TYPE = "lib"`, `const FILE_EXT = "ts"`).
 - **`bound-params`** (dependências injetadas): `camelCase` com sufixo que indica o
   tipo — `...Lib` para bibliotecas e `...Service` para serviços
-  (ex.: `jsonFileUtilitiesLib`, `printDataLogLib`, `serverService`).
+  (ex.: `jsonFileUtilitiesLib`, `loggerLib`, `serverService`).
 
 ---
 
@@ -356,7 +353,7 @@ E um `.gitignore` com pelo menos `node_modules`.
       escreve; sem ele o pacote fica fora do `verify-typescript`).
 - [ ] Dependências entre pacotes **por namespace**.
 - [ ] Estilo: arrow functions, aspas duplas, sem ponto e vírgula, 4 espaços (código) / tab (JSON de metadata).
-- [ ] `README.md` no [padrão](./PADRAO-README-PACOTE.md): propósito, namespace, exports/comandos e dependências.
+- [ ] `README.md` no [padrão](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-readme-standard.md): propósito, namespace, exports/comandos e dependências.
 - [ ] (Opcional, recomendado) Gerar o esqueleto com `mypkg create ...` e ajustar.
 
 ---

@@ -33,11 +33,9 @@ Um pacote sempre vive dentro da hierarquia
 - Aplicações web compostas → um `*.group` dentro de `Application.layer` ou
   `Apps.Module`.
 
-O **nome da pasta** do pacote termina sempre com o sufixo do tipo: `.lib`,
-`.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.desktopapp`, `.app`,
-`.uilib`, `.wasmlib`, `.nativeservice`.
-(Há ainda o sufixo **experimental** `.nativelib`, que a descoberta de pacotes da
-plataforma ainda **não** reconhece.)
+O **nome da pasta** do pacote termina sempre com o sufixo do tipo. A lista
+completa, com o que cada tipo significa, é canônica em
+[Package](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/package.md).
 
 > Para um módulo **WebAssembly** (`.wasmlib`), o passo a passo é outro — o pacote
 > carrega um binário versionado e um manifesto próprio. Veja o
@@ -168,7 +166,7 @@ terminal:
             "executableName": "saudar",
             "bound-params": {
                 "saudacaoUtilitiesLib": "@/saudacao-utilities.lib",
-                "printDataLogLib": "@/print-data-log.lib"
+                "utilitiesLib": "@/utilities.lib"
             }
         }
     ]
@@ -187,7 +185,7 @@ terminal:
 {
     "bound-params": [
         "saudacaoUtilitiesLib",
-        "printDataLogLib"
+        "utilitiesLib"
     ],
     "commands": [
         {
@@ -281,7 +279,7 @@ module.exports = SaudarCommand
 
 Inclua um `README.md` descrevendo o pacote, seus comandos e exemplos de uso —
 todos os pacotes oficiais seguem essa convenção. O formato é especificado no
-[Padrão de README de Pacote](./PADRAO-README-PACOTE.md): ficha de identidade
+[Package README Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-readme-standard.md): ficha de identidade
 (tipo, namespace, localização), `## Propósito` e uma seção de superfície pública
 que varia conforme o tipo do pacote.
 
@@ -322,7 +320,7 @@ Para execução isolada de baixo nível (sem instalar no ecossistema), use
 - [ ] (CLI) `command-group.json` lista os comandos e seus `parametersToLoad`.
 - [ ] Dependências entre pacotes são feitas **por namespace**, nunca por caminho
       relativo ao sistema de arquivos.
-- [ ] Há um `README.md` no [padrão](./PADRAO-README-PACOTE.md).
+- [ ] Há um `README.md` no [padrão](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-readme-standard.md).
 - [ ] O pacote está no `Module`/`Layer`/`Group` adequado ao seu tipo.
 
 ---
@@ -330,6 +328,6 @@ Para execução isolada de baixo nível (sem instalar no ecossistema), use
 ## Referências
 
 - [Arquitetura e Organização](./ARQUITETURA.md)
-- [Padrão de README de Pacote](./PADRAO-README-PACOTE.md)
+- [Package README Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/package-readme-standard.md)
 - [Tipos de Object Loader](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/concepts/tipos-de-object-loader.md)
 - [Execution Params Standard](https://github.com/Meta-Platform/meta-platform-open-standard/blob/main/specifications/packages/execution-params-standard.md)

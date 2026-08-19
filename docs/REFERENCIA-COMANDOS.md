@@ -23,7 +23,7 @@ Instala e atualiza ecossistemas a partir de perfis. Fonte:
 | `mywizard list-profiles` | Lista os perfis de instalação registrados. |
 | `mywizard install [profile] [installation-path]` | Instala um ecossistema conforme o perfil. |
 | `mywizard update [profile] [installation-path]` | Atualiza um ecossistema instalado. |
-| `mywizard show-profile [profile]` | ⚠️ Existe no CLI, mas está **quebrado** na versão atual — ver [known-issues](https://github.com/Meta-Platform/meta-platform-setup-wizard-command-line/blob/main/docs/known-issues.md). |
+| `mywizard show-profile <profile>` | Mostra o conteúdo de um perfil registrado. |
 
 - `profile` / `--profile` — nome do perfil. **Informe sempre** um perfil
   registrado (o default interno `standard` não é válido — ver known-issues).
