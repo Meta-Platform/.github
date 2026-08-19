@@ -35,7 +35,7 @@ Um pacote sempre vive dentro da hierarquia
 
 O **nome da pasta** do pacote termina sempre com o sufixo do tipo: `.lib`,
 `.cli`, `.service`, `.webservice`, `.webgui`, `.webapp`, `.desktopapp`, `.app`,
-`.uilib`, `.wasmlib`.
+`.uilib`, `.wasmlib`, `.nativeservice`.
 (Há ainda o sufixo **experimental** `.nativelib`, que a descoberta de pacotes da
 plataforma ainda **não** reconhece.)
 

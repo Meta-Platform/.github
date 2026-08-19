@@ -65,6 +65,7 @@ Nesta ordem:
 | `.taskLoader` | *task loader* |
 | `.nativelib` | biblioteca nativa |
 | `.wasmlib` | módulo WebAssembly |
+| `.nativeservice` | serviço-folha nativo |
 
 ## Superfície pública, por tipo de pacote
 
