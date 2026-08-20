@@ -11,6 +11,7 @@ Repositório especial da organização **Meta Platform**. Concentra:
   - [Guia: Criar um Pacote](./docs/GUIA-CRIAR-PACOTE.md)
   - [Guia de Desenvolvimento](./docs/GUIA-DESENVOLVIMENTO.md)
   - [Guia: Como o Código Chega ao Ar](./docs/GUIA-PROVISIONAMENTO.md)
+  - [Guia: Memória, Limites e Como Medir](./docs/GUIA-MEMORIA.md)
   - [Guia: WebAssembly na Plataforma](./docs/GUIA-WEBASSEMBLY.md)
   - [Referência de Comandos](./docs/REFERENCIA-COMANDOS.md)
 
