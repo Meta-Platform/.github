@@ -116,8 +116,12 @@ ainda em estágio inicial (ex.: `MetaCloud`, `home-screen`, `my-workspace`).
 
 ## Licença
 
-Componentes sob **BSD-3-Clause**; o
-[Open Standard](https://github.com/Meta-Platform/meta-platform-open-standard) sob
-**GPL-3.0**. Veja o `LICENSE` de cada repositório.
+**Implementações** sob **BSD-3-Clause**; a **especificação e o material derivado
+dela** sob **GPL-3.0** — o
+[Open Standard](https://github.com/Meta-Platform/meta-platform-open-standard) e o
+livro gerado a partir dele.
+
+O copyleft protege o padrão de ser fechado. **Escrever software sobre a
+plataforma não obriga a abrir nada.** Veja o `LICENSE` de cada repositório.
 
 **Contato:** Kaio Cezar — kadisk.shark@gmail.com
